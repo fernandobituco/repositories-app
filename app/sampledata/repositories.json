@@ -1,0 +1,37 @@
+{
+  "data": [
+    {
+      "id": 457093663,
+      "name": "api-series",
+      "owner": {
+        "login": "fernandobituco",
+        "avatar_url": "https://avatars.githubusercontent.com/u/89984355?v=4"
+      },
+      "html_url": "https://github.com/fernandobituco/api-series",
+      "description": "Aplicativo para consumir api de cadastro de séries",
+      "language": "Kotlin"
+    },
+    {
+      "id": 473189052,
+      "name": "Bullet-hell",
+      "owner": {
+        "login": "fernandobituco",
+        "avatar_url": "https://github.com/fernandobituco/Bullet-hell"
+      },
+      "html_url": "https://github.com/fernandobituco/api-series",
+      "description": "A 2d mobile game made in unity C#",
+      "language": "C#"
+    },
+    {
+      "id": 403407186,
+      "name": "Lista-de-Series",
+      "owner": {
+        "login": "fernandobituco",
+        "avatar_url": "https://github.com/fernandobituco/Bullet-hell"
+      },
+      "html_url": "https://github.com/fernandobituco/Lista-de-Series",
+      "description": "Lista-de-Series",
+      "language": "C#"
+    }
+  ]
+}
