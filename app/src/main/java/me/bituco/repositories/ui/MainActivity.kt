@@ -17,7 +17,7 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
     private val dialog by lazy { createProgressDialog() }
     private val viewModel by viewModel<MainViewModel>()
-    private val adapter by lazy { RepoListAdapter() }
+    private val adapter by lazy { RepoListAdapter(this) }
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {

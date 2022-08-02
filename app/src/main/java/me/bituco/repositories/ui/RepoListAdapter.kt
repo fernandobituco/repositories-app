@@ -1,7 +1,11 @@
 package me.bituco.repositories.ui
 
+import android.app.Activity
+import android.content.Intent
+import android.net.Uri
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.core.content.ContextCompat.startActivity
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -9,7 +13,7 @@ import com.bumptech.glide.Glide
 import me.bituco.repositories.data.models.Repo
 import me.bituco.repositories.databinding.ItemRepositoryBinding
 
-class RepoListAdapter : ListAdapter<Repo, RepoListAdapter.ViewHolder>(DiffCallback()) {
+class RepoListAdapter(private val mContext: Activity) : ListAdapter<Repo, RepoListAdapter.ViewHolder>(DiffCallback()) {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -32,6 +36,11 @@ class RepoListAdapter : ListAdapter<Repo, RepoListAdapter.ViewHolder>(DiffCallba
 
             Glide.with(binding.root.context)
                 .load(item.owner.avatar_url).into(binding.ivOwner)
+
+            binding.cGithub.setOnClickListener {
+                val intent = Intent(Intent.ACTION_VIEW, Uri.parse(item.html_url))
+                mContext.startActivity(intent)
+            }
         }
     }
 }
