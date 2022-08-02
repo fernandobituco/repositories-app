@@ -6,13 +6,18 @@ import android.util.Log
 import android.view.Menu
 import androidx.appcompat.widget.SearchView
 import me.bituco.repositories.R
+import me.bituco.repositories.core.createDialog
+import me.bituco.repositories.core.createProgressDialog
+import me.bituco.repositories.core.hideSoftKeyboard
 import me.bituco.repositories.databinding.ActivityMainBinding
 import me.bituco.repositories.presentation.MainViewModel
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
 
+    private val dialog by lazy { createProgressDialog() }
     private val viewModel by viewModel<MainViewModel>()
+    private val adapter by lazy { RepoListAdapter() }
     private val binding by lazy { ActivityMainBinding.inflate(layoutInflater) }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -20,9 +25,22 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
         setContentView(binding.root)
 
         setSupportActionBar(binding.toolbar)
+        binding.rvRepos.adapter = adapter
 
         viewModel.repos.observe(this) {
-
+            when (it) {
+                is MainViewModel.State.Loading -> dialog.show()
+                is MainViewModel.State.Error -> {
+                    createDialog {
+                        setMessage(it.error.message)
+                    }.show()
+                    dialog.dismiss()
+                }
+                is MainViewModel.State.Success -> {
+                    dialog.dismiss()
+                    adapter.submitList(it.list)
+                }
+            }
         }
     }
 
@@ -34,12 +52,12 @@ class MainActivity : AppCompatActivity(), SearchView.OnQueryTextListener {
     }
 
     override fun onQueryTextSubmit(query: String?): Boolean {
-        Log.d("Search", "Text Submit $query")
+        query?.let { viewModel.getRepoList(it) }
+        binding.root.hideSoftKeyboard()
         return true
     }
 
     override fun onQueryTextChange(newText: String?): Boolean {
-        Log.d("Search", "Text Change $newText")
         return false
     }
 }

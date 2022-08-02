@@ -15,6 +15,7 @@ class MainViewModel(private val listUserRepositoriesUseCase: ListUserRepositorie
 
     private val _repos = MutableLiveData<State>()
     val repos: LiveData<State> = _repos
+
     fun getRepoList(user: String) {
         viewModelScope.launch {
             listUserRepositoriesUseCase(user)
