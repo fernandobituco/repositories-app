@@ -1,6 +1,5 @@
 package me.bituco.repositories.domain.di
 
-import me.bituco.repositories.data.di.DataModule
 import me.bituco.repositories.domain.ListUserRepositoriesUseCase
 import org.koin.core.context.loadKoinModules
 import org.koin.core.module.Module
